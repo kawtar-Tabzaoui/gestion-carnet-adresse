@@ -5,10 +5,7 @@ import csv
 def conexion():
 
     # crée le fichier de base de données carnet.db s'il n'existe pas
-    import os
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    db_path = os.path.join(base_dir, "..", "src", "carnet.db")
-    return sqlite3.connect(db_path)
+    return sqlite3.connect("carnet.db")
 
 def initialiser_bd():
     connexion = conexion() # ouvrir la connexion
@@ -80,36 +77,34 @@ def ajouter_contact(nom, email, telephone):
 
 
 def supprimer_contact(info):
-    conn = conexion()
-    cursor = conn.cursor()
+    connexion = conexion()
+    cursor = connexion.cursor()
 
-    try:
-        id = int(info)
-        cursor.execute("DELETE FROM contacts WHERE id=?", (id,))
-    except ValueError:
-        cursor.execute(
-            """DELETE FROM contacts 
-               WHERE LOWER(nom) = LOWER(?) 
-               OR LOWER(email) = LOWER(?)""",
-            (info, info)
-        )
-    rows = cursor.rowcount
-    conn.commit()
-    conn.close()
-    return rows > 0
-
+    # chercher par nom OU email
+    cursor.execute(
+        """DELETE FROM contacts 
+           WHERE LOWER(nom) = LOWER(?) 
+           OR LOWER(email) = LOWER(?)""",
+        (info, info)
+    )
+    rows = cursor.rowcount  # nombre de lignes supprimées
+    connexion.commit()
+    connexion.close()
+    return rows > 0  # True si supprimé, False si pas trouvé
 
 
 
 
 # afficher tous les contact
 def get_all_contacts():
-    conn = conexion()
-    cursor = conn.cursor()
-    cursor.execute("SELECT id, nom, email, telephone FROM contacts ORDER BY nom")
-    contacts = cursor.fetchall()
-    conn.close()
-    return contacts
+    connexion = conexion()
+    cursor = connexion.cursor()
+    cursor.execute(
+        "SELECT nom, email, telephone FROM contacts ORDER BY nom" # lire les données trier par ordre alphabetique
+    )
+    contacts = cursor.fetchall()  # récupérer tous les lignes
+    connexion.close()
+    return contacts               # retourner liste des contacts
 
 
 def verifier_admin(username, mot_de_passe):
@@ -129,26 +124,11 @@ def verifier_admin(username, mot_de_passe):
     return result is not None   # True si trouvé, False sinon ( identification incorrect)
 
 
-def modifier_contact(id, nom, email, telephone):
-    conn = conexion()
-    cursor = conn.cursor()
-    cursor.execute(
-        "UPDATE contacts SET nom=?, email=?, telephone=? WHERE id=?",
-        (nom, email, telephone, id)
-    )
-    conn.commit()
-    conn.close()
-
-
 def exporter_csv():
-    conn = conexion()
-    cursor = conn.cursor()
-    cursor.execute("SELECT id, nom, email, telephone FROM contacts ORDER BY nom")
-    contacts = cursor.fetchall()
-    conn.close()
+    contacts = get_all_contacts()  # récupérer tous les contacts
     with open("contacts_export.csv", "w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        writer.writerow(["ID", "Nom", "Email", "Téléphone"])
+        writer = csv.writer(f) # outil pour ecrir dans un fichier csv
+        writer.writerow(["Nom", "Email", "Téléphone"])  # entête , # ecrir une ligne
         for c in contacts:
-            writer.writerow([c[0], c[1], c[2], c[3]])
+            writer.writerow(c)   # écrire chaque contact
     return "contacts_export.csv"

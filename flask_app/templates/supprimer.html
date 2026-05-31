@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Supprimer un contact</title>
+</head>
+<body>
+    <h1>🗑️ Supprimer un contact</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <p style="color: red">{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST">
+        <table>
+            <tr>
+                <td>Nom, Email ou ID :</td>
+                <td><input type="text" name="info" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit">🗑️ Supprimer</button></td>
+            </tr>
+        </table>
+    </form>
+
+    <br>
+    <a href="/">⬅️ Retour</a>
+</body>
+</html>

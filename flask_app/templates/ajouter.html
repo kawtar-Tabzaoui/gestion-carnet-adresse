@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter un contact</title>
+    <style>
+        .erreur { color: red; background: #ffe0e0; padding: 10px; border-radius: 5px; margin: 10px 0; }
+        .info { color: gray; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h1>➕ Ajouter un contact</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="erreur">
+                ⚠️ {{ message }}<br>
+                <small>Veuillez corriger et réessayer.</small>
+            </div>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST">
+        <table>
+            <tr>
+                <td>Nom :</td>
+                <td><input type="text" name="nom" required></td>
+            </tr>
+            <tr>
+                <td>Email :</td>
+                <td>
+                    <input type="text" name="email" required>
+                    <br><span class="info">ex: nom@gmail.com</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Téléphone :</td>
+                <td>
+                    <input type="text" name="telephone" required>
+                    <br><span class="info">10 chiffres, commence par 06 ou 07</span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit">✅ Confirmer</button></td>
+            </tr>
+        </table>
+    </form>
+
+    <br>
+    <a href="/">⬅️ Retour</a>
+</body>
+</html>

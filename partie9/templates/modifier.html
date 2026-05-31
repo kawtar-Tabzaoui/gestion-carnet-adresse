@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>
+        Modifier un contact
+    </title>
+
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+    <div class="container mt-5" style="max-width: 650px;">
+
+        <div class="card p-4 shadow-lg">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2>
+        ✏️ Modifier un contact
+    </h2>
+
+    <a href="/" class="btn btn-dark shadow-sm">
+
+        🏠 Home
+
+    </a>
+
+</div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+
+                    <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }}">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+            {% endwith %}
+
+            <form method="POST">
+
+                <!-- NOM -->
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        👤 Nom
+                    </label>
+
+                    <input
+                    type="text"
+                    name="nom"
+                    class="form-control"
+                    value="{{ contact[1] }}"
+                    required>
+
+                </div>
+
+                <!-- EMAIL -->
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        📧 Email
+                    </label>
+
+                    <input
+                    type="text"
+                    name="email"
+                    class="form-control"
+                    value="{{ contact[2] }}"
+                    required>
+
+                </div>
+
+                <!-- TELEPHONE -->
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        📱 Téléphone
+                    </label>
+
+                    <input
+                    type="text"
+                    name="telephone"
+                    class="form-control"
+                    value="{{ contact[3] }}"
+                    required>
+
+                </div>
+
+                <!-- CATEGORIE -->
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        🏷️ Catégorie
+                    </label>
+
+                    <select
+                    name="categorie"
+                    class="form-control">
+
+                        <option
+                        value="Client"
+                        {% if contact[4] == "Client" %}
+                        selected
+                        {% endif %}>
+
+                            Client
+
+                        </option>
+
+                        <option
+                        value="Fournisseur"
+                        {% if contact[4] == "Fournisseur" %}
+                        selected
+                        {% endif %}>
+
+                            Fournisseur
+
+                        </option>
+
+                        <option
+                        value="Laboratoire"
+                        {% if contact[4] == "Laboratoire" %}
+                        selected
+                        {% endif %}>
+
+                            Laboratoire
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- ADRESSE -->
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        📍 Adresse
+                    </label>
+
+                    <input
+                    type="text"
+                    name="adresse"
+                    class="form-control"
+                    value="{{ contact[5] }}">
+
+                </div>
+
+                <!-- FONCTION -->
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        👔 Fonction
+                    </label>
+
+                    <input
+                    type="text"
+                    name="fonction"
+                    class="form-control"
+                    value="{{ contact[6] }}">
+
+                </div>
+
+                <!-- ENTREPRISE -->
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        🏢 Entreprise
+                    </label>
+
+                    <input
+                    type="text"
+                    name="entreprise"
+                    class="form-control"
+                    value="{{ contact[7] }}">
+
+                </div>
+
+                <!-- BOUTONS -->
+                <button
+                type="submit"
+                class="btn btn-warning w-100">
+
+                    ✅ Confirmer
+
+                </button>
+
+                <a
+                href="/"
+                class="btn btn-secondary w-100 mt-2">
+
+                    ⬅️ Retour
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

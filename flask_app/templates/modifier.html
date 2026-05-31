@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier un contact</title>
+</head>
+<body>
+    <h1>✏️ Modifier un contact</h1>
+
+    <form method="POST">
+        <table>
+            <tr>
+                <td>Nom :</td>
+                <td><input type="text" name="nom" value="{{ contact[1] }}" required></td>
+            </tr>
+            <tr>
+                <td>Email :</td>
+                <td><input type="email" name="email" value="{{ contact[2] }}" required></td>
+            </tr>
+            <tr>
+                <td>Téléphone :</td>
+                <td><input type="text" name="telephone" value="{{ contact[3] }}" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit"> Confirmer</button></td>
+            </tr>
+        </table>
+    </form>
+
+    <br>
+    <a href="/">⬅️ Retour</a>
+</body>
+</html>

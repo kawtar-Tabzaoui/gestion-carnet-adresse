@@ -57,38 +57,39 @@ afficher_contacts()                       # appel la fonction dab - bach tban le
 # FONCTION : ajouter un contact (popup)
 # ════════════════════════════════════════════════════
 def fenetre_ajouter():
-    popup = tk.Toplevel(root)             # créer fenêtre popup fوق la fenêtre principale
-    popup.title("Ajouter un Contact")    # smiya dyal popup
-    popup.geometry("300x220")            # taille dyal popup
+    popup = tk.Toplevel(root)
+    popup.title("Ajouter un Contact")
+    popup.geometry("300x220")
 
-    tk.Label(popup, text="Nom :").pack(pady=(15, 0))      # label "Nom"
-    entry_nom = tk.Entry(popup, width=30)                  # champ de saisie dyal nom
-    entry_nom.pack()                                       # afficher le champ
+    tk.Label(popup, text="Nom :").pack(pady=(15, 0))
+    entry_nom = tk.Entry(popup, width=30)
+    entry_nom.pack()
 
-    tk.Label(popup, text="Email :").pack(pady=(10, 0))    # label "Email"
-    entry_email = tk.Entry(popup, width=30)                # champ de saisie dyal email
-    entry_email.pack()                                     # afficher le champ
+    tk.Label(popup, text="Email :").pack(pady=(10, 0))
+    entry_email = tk.Entry(popup, width=30)
+    entry_email.pack()
 
-    tk.Label(popup, text="Téléphone :").pack(pady=(10, 0)) # label "Téléphone"
-    entry_tel = tk.Entry(popup, width=30)                   # champ de saisie dyal téléphone
-    entry_tel.pack()                                        # afficher le champ
+    tk.Label(popup, text="Téléphone :").pack(pady=(10, 0))
+    entry_tel = tk.Entry(popup, width=30)
+    entry_tel.pack()
 
-    def confirmer():                                        # fonction li tatkhdem mnin tclick "Confirmer"
-        nom = entry_nom.get().strip()                       # jib le texte dyal champ nom
-        email = entry_email.get().strip()                   # jib le texte dyal champ email
-        telephone = entry_tel.get().strip()                 # jib le texte dyal champ téléphone
+    def confirmer():
+        nom = entry_nom.get().strip()
+        email = entry_email.get().strip()
+        telephone = entry_tel.get().strip()
         try:
-            nouveau = Contact(nom, email, telephone)        # créer contact jdid - kayvalidiwi automatiquement
-            result = carnet.ajouter_contact(nouveau)          # ajouter f fichier
-            if result:                                      # ila zad b success
-                messagebox.showinfo("Succès", f"Contact '{nom}' ajouté !")  # popup njah
-                popup.destroy()                             # sfer le popup
-                afficher_contacts()                         # refresh la listbox
-        except AssertionError as e:                         # ila kayn erreur f validation
-            messagebox.showerror("Erreur", str(e))          # affich le popup dyal l'erreur
+            nouveau = Contact(nom, email, telephone)
+            result = carnet.ajouter_contact(nouveau)
+            if result:
+                messagebox.showinfo("Succès", f"Contact '{nom}' ajouté !")
+                popup.destroy()
+                afficher_contacts()
+            else:
+                messagebox.showwarning("Attention", f"Le contact '{nom}' existe déjà !")
+        except AssertionError as e:
+            messagebox.showerror("Erreur", str(e))
 
-    tk.Button(popup, text="✅ Confirmer", command=confirmer).pack(pady=15)  # bouton confirmer
-
+    tk.Button(popup, text="✅ Confirmer", command=confirmer).pack(pady=15)  # ← manquait!
 # ════════════════════════════════════════════════════
 # FONCTION : supprimer le contact sélectionné
 # ════════════════════════════════════════════════════

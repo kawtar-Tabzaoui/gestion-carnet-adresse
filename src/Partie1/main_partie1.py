@@ -18,14 +18,39 @@ def menu():
         # Correction : utilisation de "1" en tant que chaîne de caractères
         if choix == "1":
             nom = input("Nom : ")
-            assert isinstance(nom, str) and len(nom) > 0, "Nom non valide"
+            while True:
+                if isinstance(nom, str) and len(nom) > 0:
+                    break
+                else:
+                    print("le nom n'est pas valide")
+                    nom = input("Entrer s'il vous plait votre nom:")
+
+
+
+
 
             email = input("Email : ")
-            emai_structure = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-            assert re.match(emai_structure, email), "Email non valide"
+            while True:
+                email_structure = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+                if re.match(email_structure, email):
+                    break
+                else:
+                    print("Email non valide")
+                    email =input("Erreur S'il vous plait entrer votre email:")
+
+
+
+
 
             telephone = input("Téléphone : ")
-            assert telephone.isdigit() and len(telephone) == 10, "Telephone non valide"
+            while True:
+                if telephone.isdigit() and len(telephone) == 10:
+                    break
+                else:
+                    print("Telephone non valide")
+                    telephone = input("Erreur S'il vous plait votre telephone:")
+
+
 
             try:
                 # Création de l'objet et ajout au carnet

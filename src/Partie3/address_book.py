@@ -24,7 +24,7 @@ class Adress_book:
         for contact in contacts:
             if contact.nom.lower() == nouveau_contact.nom.lower():
                 print("Ce contact existe déjà.")
-                return
+                return False
 
         # Ajouter le contact à la fin du fichier (mode "a" pour append)
         with open(self.fichier, "a") as f:

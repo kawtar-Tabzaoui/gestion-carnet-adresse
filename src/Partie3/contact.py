@@ -7,7 +7,8 @@ class Contact:
         emai_structure = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
         assert re.match(emai_structure,email),"email non valide"
 
-        assert telephone.isdigit() and len(telephone) == 10,"telephone non valide"
+        assert telephone.isdigit() and len(telephone) == 10, "Téléphone doit contenir 10 chiffres"
+        assert telephone.startswith("06") or telephone.startswith("07"), "Téléphone doit commencer par 06 ou 07"
         self.nom = nom
         self.email = email
         self.telephone = telephone
